@@ -3,7 +3,7 @@ name: Android UI Tests with Espresso
 on:
   push:
     branches:
-      - main
+      - pipeline
 
 jobs:
   build-and-test:
