@@ -21,5 +21,6 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.abbasi.redditbook", appContext.packageName)
+        println("Sample UI Test")
     }
 }
