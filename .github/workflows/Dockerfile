@@ -13,7 +13,7 @@ RUN mkdir -p $ANDROID_HOME && \
     curl -sS https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip -o /tmp/android.zip && \
     unzip -qq /tmp/android.zip -d $ANDROID_HOME && \
     rm /tmp/android.zip
-RUN yes | sdkmanager --licenses
+#RUN yes | sdkmanager --licenses
 
 # Create and start emulator
 ARG EMULATOR_API_LEVEL
