@@ -1,0 +1,52 @@
+name: Android UI Tests with Espresso
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug
+
+      - name: Set up Docker
+        uses: docker/setup-docker@v1
+
+      - name: Start Android Emulator
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile
+          push: false
+          tags: latest
+        env:
+          EMULATOR_API_LEVEL: 30
+          EMULATOR_NAME: test-emulator
+          EMULATOR_ARCH: x86_64
+          EMULATOR_TAG: default
+
+      - name: Run UI Tests
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile
+          push: false
+          tags: latest
+          target: test-runner
+        env:
+          EMULATOR_API_LEVEL: 30
+          EMULATOR_NAME: test-emulator
+          EMULATOR_ARCH: x86_64
+          EMULATOR_TAG: default
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: app/build/reports/androidTests/connected/
