@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -32,6 +34,27 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+
+    testOptions {
+        devices {
+            pixel2api29(ManagedVirtualDevice) {
+                device = "Pixel 2"
+                apiLevel = 29
+                systemImageSource = "google"
+            }
+            nexus9api30(ManagedVirtualDevice) {
+                device = "Nexus 9"
+                apiLevel = 30
+                systemImageSource = "google"
+            }
+        }
+        deviceGroups {
+            // To run: ./gradlew -Pandroid.experimental.androidTest.useUnifiedTestPlatform=true phoneAndTabletGroupDebugAndroidTest
+            phoneAndTablet {
+                targetDevices.addAll(devices.pixel2api29, devices.nexus9api30)
+            }
+        }
     }
 }
 

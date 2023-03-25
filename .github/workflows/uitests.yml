@@ -18,35 +18,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Start Android Emulator
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./.github/workflows/Dockerfile
-          push: false
-          tags: latest
-        env:
-          EMULATOR_API_LEVEL: 30
-          EMULATOR_NAME: test-emulator
-          EMULATOR_ARCH: x86_64
-          EMULATOR_TAG: default
-
-      - name: Run UI Tests
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./.github/workflows/Dockerfile
-          push: false
-          tags: latest
-          target: test-runner
-        env:
-          EMULATOR_API_LEVEL: 30
-          EMULATOR_NAME: test-emulator
-          EMULATOR_ARCH: x86_64
-          EMULATOR_TAG: default
+      - name: Run UI test via Gradle Virtual Devices
+        run: ./gradlew -Pandroid.experimental.androidTest.useUnifiedTestPlatform=true phoneAndTabletGroupDebugAndroidTest
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: app/build/reports/androidTests/connected/
+          path: app/build/reports/androidTests/managedDevice/allDevices
+
