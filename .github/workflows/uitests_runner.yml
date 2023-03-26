@@ -10,7 +10,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      -
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+
       - name: Checkout Repo
         uses: actions/checkout@v3
 
