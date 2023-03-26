@@ -10,11 +10,11 @@ jobs:
     runs-on: macos-latest
 
     steps:
-#      - name: Setup Java
-#        uses: actions/setup-java@v2
-#        with:
-#          java-version: '11'
-#          distribution: 'adopt'
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
