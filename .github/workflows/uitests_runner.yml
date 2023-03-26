@@ -1,0 +1,29 @@
+name: Android UI Tests with Espresso
+
+on:
+  push:
+    branches:
+      - pipeline
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+
+
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Run UI test using Emulator Action
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: app/build/reports/androidTests/managedDevice/allDevices
+
