@@ -1,9 +1,7 @@
 name: Android UI Tests (Emulator))
 
 on:
-  push:
-    branches:
-      - pipeline
+  workflow_dispatch
 
 jobs:
   build-and-test:
