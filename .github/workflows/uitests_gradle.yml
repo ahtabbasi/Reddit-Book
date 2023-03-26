@@ -1,4 +1,4 @@
-name: Android UI Tests with Espresso
+name: Android UI Tests (Gradle)
 
 on:
   push:
